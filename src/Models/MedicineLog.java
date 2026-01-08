@@ -15,6 +15,7 @@ public class MedicineLog {
     }
     public void setMedStock(int Stock){
         this.medInfoStock= Stock;
+
     }
 }
 // class MedicineLogRepository
@@ -45,10 +46,11 @@ public class MedicineLog {
         }
         // MedicineUpdate()
 
-    public void MedicineUpdate(String medName) {
+    public int MedicineUpdate(String medName) {
         
         System.out.println("Enter the number you are adding:");
         Scanner sc = new Scanner (System.in);
+        int medInfoStock = 0;
         int medStockUpdate= sc.nextInt();
         boolean medstockEmpty= medInfos.isEmpty();
         if(medstockEmpty)
@@ -57,38 +59,41 @@ public class MedicineLog {
         }else{
             for(MedicineLog m : medInfos){
              if (m.getMedName().equals(medName)) {
-        int medInfoStock = m.getMedStock() + medStockUpdate;
+        medInfoStock = m.getMedStock() + medStockUpdate;
         m.setMedStock(medInfoStock);
         System.out.println("Updated Medicine "+ medName +", new stock is " + medInfoStock);
-        }
-    }
-}
+                }
+            }
+            }
+        return medInfoStock;
 }
 
     //markMedTaken()
 
-    public boolean markMedTaken(String medName) {
+    public int markMedTaken(String medName) {
+        int medInfoStock = 0;
          boolean medstockEmpty= medInfos.isEmpty();
-        boolean flag= false;
         if(medstockEmpty)
         {
             System.out.println("No Medicine to show.");
         }else{
             for(MedicineLog m : medInfos){
             if (m.getMedName().equals(medName)) {
-                int medInfoStock = m.getMedStock();                
+                medInfoStock = m.getMedStock(); 
                 if(medInfoStock==0){
                     System.out.println("Not enough Medicine, please fill the stock urgently!!");
                     } else if(medInfoStock>1){
-                        medInfoStock=-1;
-                        flag = true;
+                        medInfoStock= medInfoStock-1;
+                        m.setMedStock(medInfoStock);
+                        System.out.println(medName +"is taken."); 
                             }
             if(medInfoStock<5){
              System.out.println("Medicine stock is about to end please fill the stock. Remaining:" +medInfoStock);
             }
     }
 }
-}
-        return flag;
+}        
+
+        return medInfoStock;
 }
 }

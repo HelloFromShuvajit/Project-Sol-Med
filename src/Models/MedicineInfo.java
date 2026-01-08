@@ -94,7 +94,7 @@ class MedicineRepository{
         }else{
         System.out.println("Medicine List");
         for(Medicine m: medicines){
-            System.out.println("Name of the medicine: " + m.medName+"\nTime to take the Medicine:" + m.medTime);
+            System.out.println("Name of the medicine: " + m.medName+"\nTime to take the Medicine:" + m.medTime +"\nMedicine in Stock:" +m.medStock);
         }
     }
     }
@@ -114,36 +114,39 @@ class MedicineRepository{
     //updateMeds()
 
     public void updateMeds(){
-        MedicineLogRepository medLog = null;
-        try {
-        medLog.MedicineUpdate(medName);   
-        } catch (Exception e) {
+        MedicineLogRepository medLog = new MedicineLogRepository();
+        System.out.println("Enter the name of the medicine you want take:");
+        String medName= sc.nextLine(); 
+        for(Medicine m: medicines){
+            if(m.medName.equals(medName)){
+                try {
+                    m.medStock= medLog.MedicineUpdate(medName);
+                    break;
+            }    
+         catch (Exception e) {
            System.out.println("Error in updating Medicine Stock"); 
         }
     }
+                System.out.println(medName + "not found in your list.");
+
+    }
+}
     //markMed()
     
     public void markMed(){
         System.out.println("Enter the name of the medicine you have taken:");
         String medName= sc.nextLine(); 
-        boolean medLogSuccess=true;
         for(Medicine m: medicines){
             if(m.medName.equals(medName)){
-                MedicineLogRepository medLog= null;
-                try {
-                    medLogSuccess= medLog.markMedTaken(medName);
-                    if (!medLogSuccess) {
-                        System.out.println("Could not mark the medicine as taken.");
-                        break;
-                    }else{
-                System.out.println(medName +"is taken."); 
-                break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error in marking and Medicine taken is not marked.");
-                }
+                MedicineLogRepository medLog= new MedicineLogRepository();
+                //try {
+                    m.medStock= medLog.markMedTaken(medName);
+                    break;
+                //} catch (Exception e) {
+                  //  System.out.println("Error in marking and Medicine taken is not marked.");
+               // }
             }
-            System.out.println(medName + "not found in your list.");
+            System.out.println(medName + " not found in your list.");
     }
     }
 }
