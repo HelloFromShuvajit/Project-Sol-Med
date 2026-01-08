@@ -65,6 +65,7 @@ class MedicineRepository{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try{
              medTime = LocalTime.parse(medtime, formatter);
+             System.out.println(medTime);
         }
         catch (Exception e) {
         System.out.println("Invalid time format!");
