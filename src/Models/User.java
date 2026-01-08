@@ -89,11 +89,13 @@ class UserRepository{
             System.out.println("No user is registered.");
         }else{
         try{
-                System.out.println("Enter User ID: ");
-                String uID= sc.nextLine();
+                System.out.println("Enter User Email: ");
+                String uEmail= sc.nextLine();
         for( User UR : users)
         {
-            if (UR.getUserID().equals(uID)) {
+            String Testemail=UR.getUserEmail();
+            System.out.println(Testemail);
+            if (UR.getUserEmail().equals(uEmail)) {
                 System.out.println("Enter Password:");
                 String passWord = sc.nextLine();
                 if (UR.getUserPassword().equals(passWord)) {
@@ -109,7 +111,7 @@ class UserRepository{
                 }
                 return;
             }
-            System.out.println("ID does not exist.");
+            System.out.println("User email does not exist.");
 
         }
         }  // endof try

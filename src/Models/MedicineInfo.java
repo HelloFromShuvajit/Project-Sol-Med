@@ -115,7 +115,7 @@ class MedicineRepository{
 
     public void updateMeds(){
         MedicineLogRepository medLog = new MedicineLogRepository();
-        System.out.println("Enter the name of the medicine you want take:");
+        System.out.println("Enter the name of the medicine you want to update:");
         String medName= sc.nextLine(); 
         for(Medicine m: medicines){
             if(m.medName.equals(medName)){

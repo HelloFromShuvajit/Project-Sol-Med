@@ -82,12 +82,12 @@ public class MedicineLog {
                 medInfoStock = m.getMedStock(); 
                 if(medInfoStock==0){
                     System.out.println("Not enough Medicine, please fill the stock urgently!!");
-                    } else if(medInfoStock>1){
+                    } else if(medInfoStock>=1){
                         medInfoStock= medInfoStock-1;
                         m.setMedStock(medInfoStock);
-                        System.out.println(medName +"is taken."); 
+                        System.out.println(medName +" is taken."); 
                             }
-            if(medInfoStock<5){
+            if(medInfoStock<5 && medInfoStock>0){
              System.out.println("Medicine stock is about to end please fill the stock. Remaining:" +medInfoStock);
             }
     }
