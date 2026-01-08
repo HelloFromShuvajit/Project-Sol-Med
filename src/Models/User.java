@@ -52,6 +52,9 @@ class SetUserID{
 class UserRepository{
         static List<User> users = new ArrayList<>();
         Scanner sc = new Scanner (System.in);
+
+        // registerNewUser()
+
         public void registerNewUser(){
         System.out.println("Enter the name:");
         String uName = sc.nextLine();
@@ -77,9 +80,17 @@ class UserRepository{
         users.add(newUser);
         System.out.println("User registered successfully with ID:" + newUser.getUserID());
     }
-    public void loginUser(String uID){
-        
+
+    // loginUser()
+
+    public void loginUser(){
+        boolean empty = users.isEmpty();
+        if(empty){
+            System.out.println("No user is registered.");
+        }else{
         try{
+                System.out.println("Enter User ID: ");
+                String uID= sc.nextLine();
         for( User UR : users)
         {
             if (UR.getUserID().equals(uID)) {
@@ -89,10 +100,12 @@ class UserRepository{
                     System.out.println("Password Matched!!");
                     MedicineInfo medInfo = new MedicineInfo();
                     medInfo.MedicineDetails();
+                    
                     //UserServices.UserServices();                   from here call userservices.java
-                }else{
+                }
+                else{
                     System.out.println("Wrong password!!");
-                    loginUser(uID);
+                    loginUser();
                 }
                 return;
             }
@@ -105,4 +118,5 @@ class UserRepository{
             return;
         }
     }
+}
 }

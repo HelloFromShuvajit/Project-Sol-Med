@@ -20,9 +20,7 @@ public class MainApp {
                 userRepository.registerNewUser();
                 break;
             case 2:
-                System.out.println("Enter User ID: ");
-                String uID= sc.nextLine();
-                userRepository.loginUser(uID);
+                userRepository.loginUser();
                 break;
                 case 3:
                     System.out.println("Exiting.......");
@@ -32,5 +30,5 @@ public class MainApp {
                 break;
         }           // end of swtich
     }       //end of while
-    }           // end of main
+    }           // end of main        
 }           // end of MainApp

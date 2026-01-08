@@ -40,22 +40,31 @@ public class MedicineInfo {
             default:
                 break;
         }
-    }
+    } 
+ }
 }
-}
+// class Medicine 
+
 class Medicine{
     String medName;
     LocalTime medTime;
-    public Medicine(String medName, LocalTime medTime){
+    int medStock;
+    public Medicine(String medName, LocalTime medTime,int medStock){
         this.medName=medName;
         this.medTime=medTime;
+        this.medStock=medStock;
     }
 }
+// class MedicineRepository
+
 class MedicineRepository{
     static List<Medicine> medicines = new ArrayList<>();
     String medName;
     LocalTime medTime; 
     Scanner sc = new Scanner(System.in);
+
+    // addMedicine()
+
      public void addMedicine(){
         System.out.println("Enter the name of medicine you want to add:");
         medName = sc.nextLine();
@@ -65,15 +74,19 @@ class MedicineRepository{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try{
              medTime = LocalTime.parse(medtime, formatter);
-             System.out.println(medTime);
         }
         catch (Exception e) {
         System.out.println("Invalid time format!");
         }
-        Medicine medicine = new Medicine(medName, medTime);
+        System.out.println("Enter the initial Stock number you want to add:");
+        int medStock = sc.nextInt();
+        Medicine medicine = new Medicine(medName, medTime,medStock);
         medicines.add(medicine);
-
+        MedicineLogRepository medLog = new MedicineLogRepository();
+        medLog.SetStock(medName, medStock);
 }
+    // medList()
+
     public void medList(){
         boolean empty = medicines.isEmpty();
         if (empty) {
@@ -85,25 +98,52 @@ class MedicineRepository{
         }
     }
     }
+        //checkReminder()
+
     public void checkReminder(){
-        System.out.println("Enter the name of the medicine you have taken:");
+        System.out.println("Enter the name of the medicine you want take:");
         String medName= sc.nextLine(); 
-        System.out.println(medName);
         for(Medicine m: medicines){
             if(m.medName.equals(medName)){
-                System.out.println(medName +"is reminded"); // improve this update 1 less in this med stock
+                System.out.println(medName +" is to be taken at "+ m.medTime);
                 break;
             }
             System.out.println(medName + "not found in your list.");
     }
     }
-    public void updateMeds(){
-        System.out.println("This is updateMeds.");
-        MedicineLog medLog = new MedicineLog();
-        medLog.MedicineUpdate();
+    //updateMeds()
 
+    public void updateMeds(){
+        MedicineLogRepository medLog = null;
+        try {
+        medLog.MedicineUpdate(medName);   
+        } catch (Exception e) {
+           System.out.println("Error in updating Medicine Stock"); 
+        }
     }
+    //markMed()
+    
     public void markMed(){
-        System.out.println("This is markMed.");
+        System.out.println("Enter the name of the medicine you have taken:");
+        String medName= sc.nextLine(); 
+        boolean medLogSuccess=true;
+        for(Medicine m: medicines){
+            if(m.medName.equals(medName)){
+                MedicineLogRepository medLog= null;
+                try {
+                    medLogSuccess= medLog.markMedTaken(medName);
+                    if (!medLogSuccess) {
+                        System.out.println("Could not mark the medicine as taken.");
+                        break;
+                    }else{
+                System.out.println(medName +"is taken."); 
+                break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error in marking and Medicine taken is not marked.");
+                }
+            }
+            System.out.println(medName + "not found in your list.");
+    }
     }
 }
