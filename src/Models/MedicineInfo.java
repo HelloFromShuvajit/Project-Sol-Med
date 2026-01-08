@@ -45,16 +45,16 @@ public class MedicineInfo {
 }
 class Medicine{
     String medName;
-    String medTime;
+    LocalTime medTime;
     public Medicine(String medName, LocalTime medTime){
         this.medName=medName;
-        this.medTime=medName;
+        this.medTime=medTime;
     }
 }
 class MedicineRepository{
     static List<Medicine> medicines = new ArrayList<>();
     String medName;
-    String medTime; 
+    LocalTime medTime; 
     Scanner sc = new Scanner(System.in);
      public void addMedicine(){
         System.out.println("Enter the name of medicine you want to add:");
