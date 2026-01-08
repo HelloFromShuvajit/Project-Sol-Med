@@ -93,8 +93,6 @@ class UserRepository{
                 String uEmail= sc.nextLine();
         for( User UR : users)
         {
-            String Testemail=UR.getUserEmail();
-            System.out.println(Testemail);
             if (UR.getUserEmail().equals(uEmail)) {
                 System.out.println("Enter Password:");
                 String passWord = sc.nextLine();

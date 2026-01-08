@@ -127,26 +127,23 @@ class MedicineRepository{
            System.out.println("Error in updating Medicine Stock"); 
         }
     }
-                System.out.println(medName + "not found in your list.");
-
     }
 }
     //markMed()
     
     public void markMed(){
         System.out.println("Enter the name of the medicine you have taken:");
-        String medName= sc.nextLine(); 
+        medName= sc.nextLine();
         for(Medicine m: medicines){
             if(m.medName.equals(medName)){
                 MedicineLogRepository medLog= new MedicineLogRepository();
-                //try {
+                try {
                     m.medStock= medLog.markMedTaken(medName);
                     break;
-                //} catch (Exception e) {
-                  //  System.out.println("Error in marking and Medicine taken is not marked.");
-               // }
+                } catch (Exception e) {
+                    System.out.println("Error in marking and Medicine taken is not marked.");
+                }
             }
-            System.out.println(medName + " not found in your list.");
     }
     }
 }
